@@ -50,6 +50,12 @@ sub call {
     return $self->app->($env);
 }
 
+=head1 SEE ALSO
+
+L<Catalyst::Plugin::RunAfterRequest>
+
+=cut
+
 package Plack::Middleware::Cleanup::Guard;
 
 sub DESTROY { $_[0]->() }
