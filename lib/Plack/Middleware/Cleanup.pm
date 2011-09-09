@@ -7,6 +7,10 @@ use parent 'Plack::Middleware';
 
 =head1 SYNOPSIS
 
+Don't use this module.  It has some serious flaws.  See this proposal instead:
+
+https://github.com/miyagawa/psgi-specs/wiki/Proposal%3A-PSGI-environment-cleanup-handlers
+
     my $app = sub {
         my $env = shift;
         $env->{'cleanup.register'}->(sub {
@@ -33,6 +37,10 @@ after the request is complete.
 
 Make sure your coderefs do not accidentally refer to C<< $env >>, or you will
 have a circular reference and leak memory (also, your coderefs will never run).
+
+This will only work properly on handlers that happen to let C<< $env >> fall out
+of scope at the right time, e.g. FCGI.  It will not work correctly, for
+example, on CGI or mod_perl.
 
 =cut
 
